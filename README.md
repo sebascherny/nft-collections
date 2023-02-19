@@ -1,6 +1,6 @@
 # NFT Custom Collection Project - Sebastian Cherny
 
-## Here is an explanation for setting up and running the project locally.
+Here is an explanation for setting up and running the project locally.
 
 ### Database
 
@@ -11,43 +11,61 @@ If you want to go with this option, for now nothing else is necessary.
 
 + PostgreSQL: You can use PostgreSQL for the database, which is a good and scalable idea, but needs some more setup. If you want to go with this option, follow the steps below.
 
-. Go to https://postgresapp.com/
-. Download dmg file
-. Install the file in Applications and run it
++ Go to https://postgresapp.com/
+
++ Download dmg file
+
++ Install the file in Applications and run it
 
 After that, you can create a database. To create it from scratch:
-## LINUX:
-sudo su postgres
-postgres$ psql
-IF DATABASE EXISTS AND YOU WANT TO RESET IT:
-drop database nft_collections_db ;
-TO CREATE IT:
-create database nft_collections_db;
+### LINUX:
+```sudo su postgres```
+```postgres$ psql```
 
-## MAC:
+If database exists and you want to reset it:
+
+```drop database nft_collections_db ;```
+
+To create it:
+
+```create database nft_collections_db;```
+
+### MAC:
+
 After launching the App, click on the postgres file that will open a postgresql terminal, and just type:
-postgres=# create database nft_collections_db;
 
-### Running
+```postgres=# create database nft_collections_db;```
+
+## Running
 
 Open a terminal and move to the project parent folder. From there:
 
 First we setup the virtual environment so that there are no libraries or versions problems and this steps work for every system:
 
 Assuming you have python3 installed
+
 ```python3 -m pip install --user virtualenv```
+
 ```python3 -m venv env```
+
 ```source env/bin/activate```
+
 ```python3 -m pip install -r requirements.txt```
+
 ```export SECRET_KEY="AnyKeyForDjango"```
 
 Now, depending on which database you want to use:
+
 For Postgres, assuming nft_collection is database name:
+
 ```export DATABASE_URL=postgresql://localhost/nft_collection```
+
 For sqlite:
+
 ```export USE_SQLITE=1```
 
 ```python3 src/manage.py migrate```
+
 ```python3 src/manage.py runserver```
 
 It should be running!
@@ -58,7 +76,9 @@ Click on register (http://127.0.0.1:8000/register) and create a user.
 After this you will already be able to create you first Custom Collection.
 
 To create an admin user, run:
+
 ```python3 src/manage.py createsuperuser```
+
 With that admin user you can go to http://127.0.0.1:8000/admin and see database objects.
 
 
@@ -66,7 +86,8 @@ With that admin user you can go to http://127.0.0.1:8000/admin and see database 
 ### Testing
 
 The API can be tested by going to the src/app/test folder and running:
-python3 ../../manage.py test
+
+```python3 ../../manage.py test```
 
 Every test should pass. These are unittests that check that every API link works as expected for different parameters and situations, creating the appropriate changes in a test database.
 
@@ -112,7 +133,7 @@ We have a backend API that allows the user creation, and collections creation/ed
   - GET: Returns a list of a user's Custom Collections. Requires token authentication.
   - POST: Creates a new collection for the authenticated user. Receives fields collectionName that must be string, and tokensList that must be a list of {tokenId, image, name}
 
-api/collections/<int:collection_id>/ :
+* api/collections/<int:collection_id>/ :
   - GET: Returns the collection information. Requires token authentication.
   - PUT: Edits the collection. Requires token authentication.
   - DELETE: Deletes the collection. Requires token authentication.
